@@ -9,8 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 import {onclick} from '../interface/interface'
 // Generate Order Data
-function createData(id: number, date: string, name: string, shipTo: string, paymentMethod: string, amount: number) {
-  return { id, date, name, shipTo, paymentMethod, amount };
+function createData(id: number, date: string, name: string, shipTo: string, phoneNumber: string, amount: number) {
+  return { id, date, name, shipTo, phoneNumber, amount };
 }
 
 const rows = [
@@ -42,8 +42,8 @@ export default function Orders() {
             <TableCell>Date</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Ship To</TableCell>
-            <TableCell>Payment Method</TableCell>
-            <TableCell align="right">Sale Amount</TableCell>
+            <TableCell>Phone Number</TableCell>
+            <TableCell align="right">Amount</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -52,7 +52,7 @@ export default function Orders() {
               <TableCell>{row.date}</TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.shipTo}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
+              <TableCell>{row.phoneNumber}</TableCell>
               <TableCell align="right">{row.amount}</TableCell>
             </TableRow>
           ))}
