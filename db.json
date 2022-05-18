@@ -1,0 +1,19 @@
+{
+  "accounts": [
+    {
+      "id": 1,
+      "name": "Dang Dat",
+      "email": "admin",
+      "password": "admin"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "date": "24-02-2000",
+      "name": "Dat",
+      "shipTo": "Viet Tri",
+      "phone": "0868345610"
+    }
+  ]
+}
