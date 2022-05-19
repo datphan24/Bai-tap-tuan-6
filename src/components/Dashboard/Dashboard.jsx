@@ -9,7 +9,6 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -19,7 +18,6 @@ import { mainListItems } from './listItems';
 import OrderEntry from './OrderEntry';
 import Orders from './Orders';
 import LogoutIcon from '@mui/icons-material/Logout';
-import Button from '@material-ui/core/Button';
 import { useNavigate } from 'react-router-dom';
 const drawerWidth = 240;
 
@@ -100,9 +98,13 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 500,
   },
+  logOut: {
+    marginRight: '15px',
+    cursor: 'pointer'
+  }
 }));
 
-export default function Dashboard() {
+export default function Dashboard({setLogged}) {
   const classes = useStyles();
   const navigate = useNavigate()
   const [open, setOpen] = React.useState(false);
@@ -113,7 +115,10 @@ export default function Dashboard() {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
+  const handleLogout = () => {
+    navigate('/')
+    setLogged(false);
+  }
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -131,10 +136,8 @@ export default function Dashboard() {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Dashboard
           </Typography>
-          <Button style={{color: '#fff'}} onClick={()=> navigate('/')}>
-            <LogoutIcon>
+          <LogoutIcon className={classes.logOut} onClick={() => handleLogout()}>
             </LogoutIcon>
-          </Button>
         </Toolbar>
       </AppBar>
       <Drawer

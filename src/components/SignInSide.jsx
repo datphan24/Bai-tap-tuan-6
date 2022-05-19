@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+export default function SignInSide({setLogged}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [accounts, setAccounts] = useState([])
@@ -58,6 +58,7 @@ export default function SignInSide() {
     e.preventDefault();
     accounts.forEach(account => {
       if (account.emailUser === email && account.passwordUser === password) {
+        setLogged(true)
         navigate('/dashboard')
       } else {
         setEmail('')
