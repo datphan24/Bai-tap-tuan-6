@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link } from 'react-router-dom'
+import { Link,useParams } from 'react-router-dom'
+import { getOrderIdAction } from '../../app/action';
+import { useDispatch,useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,6 +35,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Edit() {
   const classes = useStyles();
+  const id = useParams().id
+  const dispatch = useDispatch();
+  const getOrder = useSelector(state=>state.orders)
+  const [order, setOrder] = useState([])
+  useEffect(() => {
+    dispatch(getOrderIdAction(id))
+    setOrder(getOrder)
+  }, [])
+  const { date, name, shipTo, phone } = order
+  console.log(getOrder);
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -48,6 +60,7 @@ export default function Edit() {
               InputLabelProps={{
                 shrink: true,
               }}
+              value={date}
             />
             </Grid>
             <Grid item xs={12}>
@@ -59,6 +72,7 @@ export default function Edit() {
                 label="Name Customer"
                 name="nameCustomer"
                 autoComplete="off"
+                value={name}
               />
             </Grid>
             <Grid item xs={12}>
@@ -70,6 +84,7 @@ export default function Edit() {
                 label="Ship To"
                 name="shipTo"
                 autoComplete="off"
+                value={shipTo}
               />
             </Grid>
             <Grid item xs={12}>
@@ -82,6 +97,7 @@ export default function Edit() {
                 name="phoneNumber"
                 autoComplete="off"
                 type="phone"
+                value={phone}
               />
             </Grid>
           </Grid>

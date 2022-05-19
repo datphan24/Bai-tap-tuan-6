@@ -13,7 +13,7 @@ function App() {
         <Route path='/' element={<SignInSide />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/edit' element={<Edit />} />
+        <Route path='/edit/:id' element={<Edit />} />
       </Routes>
     </div>
   );

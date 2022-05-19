@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -9,7 +9,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import { v4 } from 'uuid'
+import { useDispatch } from 'react-redux';
+import { addUserAction } from '../app/action';
+import { useNavigate } from 'react-router-dom'
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -32,7 +35,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
-
+  const [nameUser, setNameUser] = useState()
+  const [emailUser, setEmailUser] = useState()
+  const [passwordUser, setPasswordUser] = useState()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const handleSubmitSignup = (e) => {
+    e.preventDefault()
+    dispatch(addUserAction({
+      id: v4(),
+      nameUser: nameUser,
+      emailUser: emailUser,
+      passwordUser: passwordUser
+    }))
+    navigate("/")
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -43,7 +60,8 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate
+        onSubmit={handleSubmitSignup}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -55,6 +73,7 @@ export default function SignUp() {
                 id="name"
                 label="Your Name"
                 autoFocus
+                onChange={(e) => setNameUser(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -66,6 +85,7 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="off"
+                onChange={e=>setEmailUser(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -78,6 +98,7 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={e=>setPasswordUser(e.target.value)}
               />
             </Grid>
           </Grid>

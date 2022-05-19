@@ -13,13 +13,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import Stack from '@mui/material/Stack';
 import { deleteOrderAction } from '../../app/action';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
-  editLink: {
-    textDecoration: 'none',
-    color: '#1976d2',
-  },
   groupButton: {
     justifyContent: 'center'
   }
@@ -28,12 +24,13 @@ const useStyles = makeStyles((theme) => ({
 export default function Orders() {
   const classes = useStyles();
   const [orders, setOrders] = useState([])
+  const dispatch = useDispatch()
+  let navigate = useNavigate()
   useEffect(() => {
     fetch('http://localhost:5000/orders')
       .then(res => res.json())
       .then(data => setOrders(data))
   }, [orders])
-  const dispatch = useDispatch()
   const handleDelete = (id) => {
     dispatch(deleteOrderAction(id))
   }
@@ -59,8 +56,11 @@ export default function Orders() {
               <TableCell align="right">{order.phone}</TableCell>
               <TableCell>
                 <Stack direction="row" spacing={1} className={classes.groupButton}>
-                  <Button variant="outlined" startIcon={<EditIcon />}>
-                    <Link to='/edit' className={classes.editLink}>EDIT</Link>
+                  <Button variant="outlined"
+                    startIcon={<EditIcon />}
+                    onClick={()=> navigate(`/edit/${order.id}`)}
+                  >
+                    Edit
                   </Button>
                   <Button
                     variant="outlined"
