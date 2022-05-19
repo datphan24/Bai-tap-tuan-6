@@ -1,19 +1,31 @@
 {
   "accounts": [
     {
-      "id": 1,
-      "name": "Dang Dat",
-      "email": "admin",
-      "password": "admin"
+      "id": "0ccb1535-6eeb-4d4b-abb0-f62129c904ba",
+      "nameUser": "admin1",
+      "emailUser": "admin1",
+      "passwordUser": "admin"
+    },
+    {
+      "id": "a3f72b51-00ee-44d7-9f4e-2a7912c5ae0a",
+      "nameUser": "admin2",
+      "emailUser": "admin2",
+      "passwordUser": "admin"
+    },
+    {
+      "id": "eaca039b-3163-4ced-bf22-5e8cf69a8cf7",
+      "nameUser": "admin3",
+      "emailUser": "admin3",
+      "passwordUser": "admin"
     }
   ],
   "orders": [
     {
-      "id": "0d96a09c-3d95-46d0-b15b-703d835ba09a",
+      "id": "bd8e826a-146c-4777-a121-ff75d7badaba",
       "date": "2222-02-22",
-      "name": "phan dat",
-      "shipTo": "co lo nhue",
-      "phone": "0868345610"
+      "name": "tai oc cho",
+      "shipTo": "hoang quoc viet",
+      "phone": "0334099085"
     }
   ]
 }

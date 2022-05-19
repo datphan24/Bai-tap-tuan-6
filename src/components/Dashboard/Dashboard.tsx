@@ -15,11 +15,12 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from './listItems';
 import OrderEntry from './OrderEntry';
 import Orders from './Orders';
-
+import LogoutIcon from '@mui/icons-material/Logout';
+import Button from '@material-ui/core/Button';
+import { useNavigate } from 'react-router-dom';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -103,6 +104,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
+  const navigate = useNavigate()
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -129,11 +131,10 @@ export default function Dashboard() {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Dashboard
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={5} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          <Button style={{color: '#fff'}} onClick={()=> navigate('/')}>
+            <LogoutIcon>
+            </LogoutIcon>
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer

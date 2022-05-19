@@ -12,7 +12,6 @@ import Container from '@material-ui/core/Container';
 import { v4 } from 'uuid'
 import { useDispatch } from 'react-redux';
 import { addUserAction } from '../app/action';
-import { useNavigate } from 'react-router-dom'
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -39,7 +38,6 @@ export default function SignUp() {
   const [emailUser, setEmailUser] = useState()
   const [passwordUser, setPasswordUser] = useState()
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const handleSubmitSignup = (e) => {
     e.preventDefault()
     dispatch(addUserAction({
@@ -48,7 +46,10 @@ export default function SignUp() {
       emailUser: emailUser,
       passwordUser: passwordUser
     }))
-    navigate("/")
+    alert('You have created account successfully!')
+    setNameUser('')
+    setEmailUser('')
+    setPasswordUser('')
   }
   return (
     <Container component="main" maxWidth="xs">
@@ -73,6 +74,7 @@ export default function SignUp() {
                 id="name"
                 label="Your Name"
                 autoFocus
+                value={nameUser}
                 onChange={(e) => setNameUser(e.target.value)}
               />
             </Grid>
@@ -85,6 +87,7 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="off"
+                value={emailUser}
                 onChange={e=>setEmailUser(e.target.value)}
               />
             </Grid>
@@ -98,6 +101,7 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={passwordUser}
                 onChange={e=>setPasswordUser(e.target.value)}
               />
             </Grid>
