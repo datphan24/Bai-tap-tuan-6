@@ -4,6 +4,7 @@ import './App.css';
 import SignInSide from './components/SignInSide'
 import SignUp from './components/SignUp'
 import Dashboard from './components/Dashboard/Dashboard'
+import Edit from './components/Dashboard/Edit'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path='/' element={<SignInSide />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/edit' element={<Edit />} />
       </Routes>
     </div>
   );

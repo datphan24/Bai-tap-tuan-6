@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,25 +7,21 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 // import { onclick, orders } from '../interface/interface'
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import Stack from '@mui/material/Stack';
 import { deleteOrderAction } from '../../app/action';
 import { useDispatch } from 'react-redux';
-
-function preventDefault(event) {
-  event.preventDefault();
-}
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
-  buttonEdit: {
-    padding: theme.spacing(1.2),
-    borderRadius: theme.spacing(0.7),
-    backgroundColor: 'blue',
-    color: 'white',
-    marginRight: theme.spacing(2),
+  editLink: {
+    textDecoration: 'none',
+    color: '#1976d2',
   },
-  buttonDelete: {
-    backgroundColor: 'red',
-    color: 'white',
+  groupButton: {
+    justifyContent: 'center'
   }
 }));
 
@@ -62,9 +57,18 @@ export default function Orders() {
               <TableCell>{order.name}</TableCell>
               <TableCell>{order.shipTo}</TableCell>
               <TableCell align="right">{order.phone}</TableCell>
-              <TableCell align="center">
-                <Link href="#" className={classes.buttonEdit} underline="none">EDIT</Link>
-                <Button id={order.id} variant="contained" className={classes.buttonDelete} onClick={() => handleDelete(order.id)}>DELETE</Button>
+              <TableCell>
+                <Stack direction="row" spacing={1} className={classes.groupButton}>
+                  <Button variant="outlined" startIcon={<EditIcon />}>
+                    <Link to='/edit' className={classes.editLink}>EDIT</Link>
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    startIcon={<DeleteIcon />}
+                    onClick={() => handleDelete(order.id)}
+                  >DELETE</Button>
+                </ Stack>
               </TableCell>
             </TableRow>
           ))}
