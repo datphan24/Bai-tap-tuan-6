@@ -9,18 +9,13 @@
   ],
   "orders": [
     {
-      "id": "a9498c80-e2b6-46f0-861d-49342a70c514",
-      "date": "123131-03-12",
-      "name": "dwqwdq",
-      "shipTo": "21321d",
-      "phone": "12321dsa"
-    },
-    {
-      "id": "4651452d-ea50-4abe-8472-cc1ad82ddca6",
-      "date": "0212-03-12",
-      "name": "qdwdqw",
-      "shipTo": "2131dasd",
-      "phone": "1231231"
+      "id": "56bd2d46-43d5-4562-a302-a3e6ad76f329",
+      "date": "2022-02-24",
+      "nameCustomer": "phan dat",
+      "shipTo": "ha noi",
+      "phone": "086834561",
+      "": "",
+      "phoneNumber": "08683456101"
     }
   ]
 }

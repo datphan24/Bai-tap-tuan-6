@@ -52,7 +52,7 @@ export default function Orders() {
           {orders.map((order) => (
             <TableRow key={order.id}>
               <TableCell>{order.date}</TableCell>
-              <TableCell>{order.name}</TableCell>
+              <TableCell>{order.nameCustomer}</TableCell>
               <TableCell>{order.shipTo}</TableCell>
               <TableCell align="right">{order.phone}</TableCell>
               <TableCell>

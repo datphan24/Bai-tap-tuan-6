@@ -5,8 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link,useParams } from 'react-router-dom'
-import { getOrderIdAction } from '../../app/action';
+import { useNavigate, useParams } from 'react-router-dom'
+import { getOrderIdAction,editOrderAction } from '../../app/action';
 import { useDispatch,useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,39 +28,53 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     width: 200,
   },
-  editLink: {
-    textDecoration: 'none',
-    color: 'white',
-  },
 }));
 export default function Edit() {
   const classes = useStyles();
   const id = useParams().id
+  const getOrder = useSelector(state=>state.order)
   const dispatch = useDispatch();
-  const getOrder = useSelector(state=>state.orders)
-  const [order, setOrder] = useState([{id: '', date: '', name: '',shipTo: '', phone: ''}])
+  const navigate = useNavigate();
+  const [order, setOrder] = useState({
+    date: '',
+    name: '',
+    shipTo: '',
+    phone: ''
+  })
+  const { date, nameCustomer, shipTo, phone } = order
   useEffect(() => {
     dispatch(getOrderIdAction(id))
-    setOrder(getOrder)
   }, [])
-  console.log(order);
-  const { date, name, shipTo, phone } = order
+  useEffect(() => {
+    setOrder({ ...getOrder })
+  }, [getOrder])
+  const handleInputChange = (e) => {
+    let { name, value } = e.target
+    setOrder({...order, [name]: value})
+  }
+  const handleEdit = (e) => {
+    e.preventDefault()
+    dispatch(editOrderAction(id, order))
+    navigate('/dashboard')
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleEdit} >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
             <TextField
               id="date"
               label="Day"
               type="date"
+              name='date'
               className={classes.textField}
               InputLabelProps={{
                 shrink: true,
               }}
-              value={date}
+              value={date || ''}
+              onChange={handleInputChange}
             />
             </Grid>
             <Grid item xs={12}>
@@ -72,7 +86,8 @@ export default function Edit() {
                 label="Name Customer"
                 name="nameCustomer"
                 autoComplete="off"
-                value={name}
+                value={nameCustomer || ''}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -84,7 +99,8 @@ export default function Edit() {
                 label="Ship To"
                 name="shipTo"
                 autoComplete="off"
-                value={shipTo}
+                value={shipTo || ''}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -94,10 +110,11 @@ export default function Edit() {
                 fullWidth
                 id="phoneNumber"
                 label="Phone Number"
-                name="phoneNumber"
+                name="phone"
                 autoComplete="off"
                 type="phone"
-                value={phone}
+                value={phone || ''}
+                onChange={handleInputChange}
               />
             </Grid>
           </Grid>
@@ -107,8 +124,7 @@ export default function Edit() {
             variant="contained"
             color="primary"
             className={classes.submit}
-          >
-            <Link to='/dashboard' className={classes.editLink}>SUBMIT</Link>
+          >SUBMIT
           </Button>
         </form>
       </div>

@@ -2,6 +2,9 @@ const initialState = {
   orders: [
     {}
   ],
+  order: {
+
+  },
   users: [
     {}
   ]
@@ -17,6 +20,7 @@ const rootReducer = (state = initialState, action) => {
         ]
       }
     case 'orders/addOrder':
+    case 'orders/deleteOrder':
       return {
         ...state,
         orders: [
@@ -24,17 +28,16 @@ const rootReducer = (state = initialState, action) => {
           action.payload
         ]
       }
-    case 'orders/deleteOrder':
+    case 'orders/getOrderId':
       return {
         ...state,
-        orders: [
-          ...state.orders
-        ]
+        order: action.payload
       }
     case 'orders/editOrder':
       return {
         ...state,
         orders: [
+          ...state.orders,
           action.payload
         ]
       }

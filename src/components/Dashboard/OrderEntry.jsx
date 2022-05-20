@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 export default function OrderEntry() {
   const classes = useStyles();
   const [date, setDate] = React.useState('')
-  const [name, setName] = React.useState('')
+  const [nameCustomer, setNameCustomer] = React.useState('')
   const [shipTo, setShipTo] = React.useState('')
   const [phone, setPhone] = React.useState('')
   const dispatch = useDispatch()
@@ -42,12 +42,12 @@ export default function OrderEntry() {
     dispatch(addOrderAction({
       id: v4(),
       date: date,
-      name: name,
+      nameCustomer: nameCustomer,
       shipTo: shipTo,
       phone: phone
     }))
     setDate('')
-    setName('')
+    setNameCustomer('')
     setShipTo('')
     setPhone('')
   }
@@ -79,8 +79,8 @@ export default function OrderEntry() {
                 label="Name Customer"
                 name="nameCustomer"
                 autoComplete="off"
-                value={name}
-                onChange={e => setName(e.target.value)}
+                value={nameCustomer}
+                onChange={e => setNameCustomer(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
