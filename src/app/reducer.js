@@ -26,12 +26,15 @@ const rootReducer = (state = initialState, action) => {
       }
     case 'orders/deleteOrder':
       return {
-        ...state
+        ...state,
+        orders: [
+          ...state.orders
+        ]
       }
     case 'orders/editOrder':
       return {
+        ...state,
         orders: [
-          ...state.orders,
           action.payload
         ]
       }

@@ -38,13 +38,13 @@ export default function Edit() {
   const id = useParams().id
   const dispatch = useDispatch();
   const getOrder = useSelector(state=>state.orders)
-  const [order, setOrder] = useState([])
+  const [order, setOrder] = useState([{id: '', date: '', name: '',shipTo: '', phone: ''}])
   useEffect(() => {
     dispatch(getOrderIdAction(id))
     setOrder(getOrder)
   }, [])
+  console.log(order);
   const { date, name, shipTo, phone } = order
-  console.log(getOrder);
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

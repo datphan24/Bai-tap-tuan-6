@@ -8,11 +8,11 @@ import Edit from './components/Dashboard/Edit'
 
 function App() {
   const [logged, setLogged] = useState(false)
-  console.log(logged);
   return (
     <div className="App">
       <Routes>
-        {logged ? <Route path='/dashboard' element={<Dashboard setLogged={setLogged} />} /> : <Route path='/' element={<SignInSide setLogged={setLogged} />} /> }
+        <Route path='/' element={<SignInSide setLogged={setLogged} />} />
+        <Route path='/dashboard' element={<Dashboard setLogged={setLogged} />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/edit/:id' element={<Edit />} />
       </Routes>
