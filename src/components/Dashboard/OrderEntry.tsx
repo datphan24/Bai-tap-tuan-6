@@ -39,17 +39,19 @@ export default function OrderEntry() {
   const dispatch = useDispatch()
   const handleSubmitOrder = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(addOrderAction({
-      id: v4(),
-      date: date,
-      nameCustomer: nameCustomer,
-      shipTo: shipTo,
-      phone: phone
-    }) as any)
-    setDate('')
-    setNameCustomer('')
-    setShipTo('')
-    setPhone('')
+    if (date && nameCustomer && shipTo && phone) {
+      dispatch(addOrderAction({
+        id: v4(),
+        date: date,
+        nameCustomer: nameCustomer,
+        shipTo: shipTo,
+        phone: phone
+      }) as any)
+      setDate('')
+      setNameCustomer('')
+      setShipTo('')
+      setPhone('')
+    } else alert('Please enter full information!')
   }
   return (
     <Container component="main" maxWidth="xs">

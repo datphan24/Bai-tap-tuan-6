@@ -54,8 +54,10 @@ export default function Edit() {
   }
   const handleEdit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(editOrderAction(id as string, order as order) as any)
-    navigate('/dashboard')
+    if (date && nameCustomer && shipTo && phone) {
+      dispatch(editOrderAction(id as string, order as order) as any)
+      navigate('/dashboard')
+    } else alert('Please enter full information!')
   }
   return (
     <Container component="main" maxWidth="xs">

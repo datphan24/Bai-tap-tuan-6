@@ -40,16 +40,18 @@ export default function SignUp() {
   const dispatch = useDispatch()
   const handleSubmitSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(addUserAction({
-      id: v4(),
-      nameUser: nameUser,
-      emailUser: emailUser,
-      passwordUser: passwordUser
-    }) as any)
-    alert('You have created account successfully!')
-    setNameUser('')
-    setEmailUser('')
-    setPasswordUser('')
+    if (nameUser && emailUser && passwordUser) {
+      dispatch(addUserAction({
+        id: v4(),
+        nameUser: nameUser,
+        emailUser: emailUser,
+        passwordUser: passwordUser
+      }) as any)
+      alert('You have created account successfully!')
+      setNameUser('')
+      setEmailUser('')
+      setPasswordUser('')
+    } else alert('Please enter full information!')
   }
   return (
     <Container component="main" maxWidth="xs">
