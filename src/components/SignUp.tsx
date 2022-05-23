@@ -34,18 +34,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
-  const [nameUser, setNameUser] = useState()
-  const [emailUser, setEmailUser] = useState()
-  const [passwordUser, setPasswordUser] = useState()
+  const [nameUser, setNameUser] = useState('')
+  const [emailUser, setEmailUser] = useState('')
+  const [passwordUser, setPasswordUser] = useState('')
   const dispatch = useDispatch()
-  const handleSubmitSignup = (e) => {
+  const handleSubmitSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch(addUserAction({
       id: v4(),
       nameUser: nameUser,
       emailUser: emailUser,
       passwordUser: passwordUser
-    }))
+    }) as any)
     alert('You have created account successfully!')
     setNameUser('')
     setEmailUser('')

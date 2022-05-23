@@ -6,7 +6,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
-// import { onclick, orders } from '../interface/interface'
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -14,7 +13,7 @@ import Stack from '@mui/material/Stack';
 import { deleteOrderAction } from '../../app/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-
+import { order } from '../interface/interface'
 const useStyles = makeStyles((theme) => ({
   groupButton: {
     justifyContent: 'center'
@@ -25,15 +24,15 @@ export default function Orders() {
   const classes = useStyles();
   const [orders, setOrders] = useState([])
   const dispatch = useDispatch()
-  const getOrder = useSelector(state=>state.orders)
+  const getOrder = useSelector((state: any) => state.orders)
   let navigate = useNavigate()
   useEffect(() => {
     fetch('http://localhost:5000/orders')
       .then(res => res.json())
       .then(data => setOrders(data))
   }, [getOrder])
-  const handleDelete = (id) => {
-    dispatch(deleteOrderAction(id))
+  const handleDelete = (id: string) => {
+    dispatch(deleteOrderAction(id) as any)
   }
   return (
     <React.Fragment>
@@ -49,7 +48,7 @@ export default function Orders() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {orders.map((order) => (
+          {orders.map((order: order) => (
             <TableRow key={order.id}>
               <TableCell>{order.date}</TableCell>
               <TableCell>{order.nameCustomer}</TableCell>

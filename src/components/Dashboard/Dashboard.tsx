@@ -19,8 +19,9 @@ import OrderEntry from './OrderEntry';
 import Orders from './Orders';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
-const drawerWidth = 240;
+import {loginStatus} from '../interface/interface'
 
+const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -104,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Dashboard({setLogged}) {
+export default function Dashboard({setLogged}: loginStatus) {
   const classes = useStyles();
   const navigate = useNavigate()
   const [open, setOpen] = React.useState(false);

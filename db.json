@@ -5,17 +5,21 @@
       "nameUser": "admin",
       "emailUser": "admin",
       "passwordUser": "admin"
+    },
+    {
+      "id": "5dc42827-5d46-44a4-8fd6-f3b5726adb31",
+      "nameUser": "Phan Dat",
+      "emailUser": "admin1",
+      "passwordUser": "admin"
     }
   ],
   "orders": [
     {
-      "id": "56bd2d46-43d5-4562-a302-a3e6ad76f329",
-      "date": "2022-02-24",
-      "nameCustomer": "phan dat",
-      "shipTo": "ha noi",
-      "phone": "086834561",
-      "": "",
-      "phoneNumber": "08683456101"
+      "id": "74812a25-6484-4df1-b7d2-e2c39b7246f8",
+      "date": "2000-12-01",
+      "nameCustomer": "dat phan",
+      "shipTo": "viet tri - phu tho",
+      "phone": "0868345610"
     }
   ]
 }

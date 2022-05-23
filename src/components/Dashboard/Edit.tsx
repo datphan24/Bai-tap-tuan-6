@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useDispatch } from 'react-redux';
-import { addOrderAction } from '../../app/action';
-import { v4 } from 'uuid'
-
+import { useNavigate, useParams } from 'react-router-dom'
+import { getOrderIdAction,editOrderAction } from '../../app/action';
+import { useDispatch,useSelector } from 'react-redux';
+import { order,editOrder } from '../interface/interface'
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -27,47 +27,54 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: 200,
-  }
+  },
 }));
-
-export default function OrderEntry() {
+export default function Edit() {
   const classes = useStyles();
-  const [date, setDate] = React.useState('')
-  const [nameCustomer, setNameCustomer] = React.useState('')
-  const [shipTo, setShipTo] = React.useState('')
-  const [phone, setPhone] = React.useState('')
-  const dispatch = useDispatch()
-  const handleSubmitOrder = (e) => {
+  const id = useParams().id
+  const getOrder = useSelector((state: any) => state.order)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [order, setOrder] = useState({
+    date: '',
+    nameCustomer: '',
+    shipTo: '',
+    phone: ''
+  })
+  const { date, nameCustomer, shipTo, phone }: editOrder = order
+  useEffect(() => {
+    dispatch(getOrderIdAction(id as string) as any)
+  }, [])
+  useEffect(() => {
+    setOrder({ ...getOrder })
+  }, [getOrder])
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let { name, value } = e.target
+    setOrder({...order, [name]: value})
+  }
+  const handleEdit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(addOrderAction({
-      id: v4(),
-      date: date,
-      nameCustomer: nameCustomer,
-      shipTo: shipTo,
-      phone: phone
-    }))
-    setDate('')
-    setNameCustomer('')
-    setShipTo('')
-    setPhone('')
+    dispatch(editOrderAction(id as string, order as order) as any)
+    navigate('/dashboard')
   }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <form className={classes.form} noValidate onSubmit={handleSubmitOrder}>
+        <form className={classes.form} noValidate onSubmit={handleEdit} >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
             <TextField
               id="date"
               label="Day"
               type="date"
+              name='date'
               className={classes.textField}
               InputLabelProps={{
                 shrink: true,
               }}
-              value={date}
-              onChange={e => setDate(e.target.value)}
+              value={date || ''}
+              onChange={handleInputChange}
             />
             </Grid>
             <Grid item xs={12}>
@@ -79,8 +86,8 @@ export default function OrderEntry() {
                 label="Name Customer"
                 name="nameCustomer"
                 autoComplete="off"
-                value={nameCustomer}
-                onChange={e => setNameCustomer(e.target.value)}
+                value={nameCustomer || ''}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -92,8 +99,8 @@ export default function OrderEntry() {
                 label="Ship To"
                 name="shipTo"
                 autoComplete="off"
-                value={shipTo}
-                onChange={e => setShipTo(e.target.value)}
+                value={shipTo || ''}
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -103,10 +110,11 @@ export default function OrderEntry() {
                 fullWidth
                 id="phoneNumber"
                 label="Phone Number"
-                name="phoneNumber"
+                name="phone"
                 autoComplete="off"
-                value={phone}
-                onChange={e => setPhone(e.target.value)}
+                type="phone"
+                value={phone || ''}
+                onChange={handleInputChange}
               />
             </Grid>
           </Grid>
@@ -116,11 +124,10 @@ export default function OrderEntry() {
             variant="contained"
             color="primary"
             className={classes.submit}
-          >
-            Submit
+          >SUBMIT
           </Button>
         </form>
       </div>
     </Container>
-  );
+  )
 }

@@ -10,6 +10,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useNavigate } from 'react-router-dom';
+import {loginStatus, account} from './interface/interface'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -41,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide({setLogged}) {
+export default function SignInSide({setLogged}: loginStatus) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [accounts, setAccounts] = useState([])
@@ -54,9 +56,9 @@ export default function SignInSide({setLogged}) {
         setAccounts(data)
       })
   }, [])
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    accounts.forEach(account => {
+    accounts.forEach((account: account) => {
       if (account.emailUser === email && account.passwordUser === password) {
         setLogged(true)
         navigate('/dashboard')

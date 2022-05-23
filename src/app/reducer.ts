@@ -1,3 +1,4 @@
+import {Action} from '../components/interface/interface'
 const initialState = {
   orders: [
     {}
@@ -9,7 +10,7 @@ const initialState = {
     {}
   ]
 }
-const rootReducer = (state = initialState, action) => {
+const rootReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case 'users/addUser':
       return {
