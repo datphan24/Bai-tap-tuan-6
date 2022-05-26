@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { useNavigate } from 'react-router-dom';
-import {loginStatus, account} from './interface/interface'
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import { useNavigate } from 'react-router-dom'
+import { loginStatus, account } from './interface/interface'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,13 +41,13 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+}))
 
 export default function SignInSide({setLogged}: loginStatus) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [accounts, setAccounts] = useState([])
-  const classes = useStyles();
+  const classes = useStyles()
   const navigate = useNavigate()
   useEffect(() => {
     fetch('http://localhost:5000/accounts')
@@ -57,12 +57,13 @@ export default function SignInSide({setLogged}: loginStatus) {
       })
   }, [])
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     accounts.forEach((account: account) => {
-      if (account.emailUser === email && account.passwordUser === password) {
+      if (account.userEmail === email && account.userPassword === password) {
         setLogged(true)
         navigate('/dashboard')
-      } else {
+      } else if (account.userEmail !== email || account.userPassword !== password){
+        alert('email or password wrong!')
         setEmail('')
         setPassword('')
       }
@@ -127,5 +128,5 @@ export default function SignInSide({setLogged}: loginStatus) {
         </div>
       </Grid>
     </Grid>
-  );
+  )
 }

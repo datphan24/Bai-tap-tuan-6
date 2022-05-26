@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react'
 import { Link } from 'react-router-dom'
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
 import { v4 } from 'uuid'
-import { useDispatch } from 'react-redux';
-import { addUserAction } from '../app/action';
+import { useDispatch } from 'react-redux'
+import { addUserAction } from '../app/action'
+import { account } from './interface/interface'
+import { useFormik } from 'formik'
+import * as yup from 'yup'
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -30,29 +34,44 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
-
+  validate: {
+    color: 'red',
+    margin: 0
+  }
+}))
 export default function SignUp() {
-  const classes = useStyles();
-  const [nameUser, setNameUser] = useState('')
-  const [emailUser, setEmailUser] = useState('')
-  const [passwordUser, setPasswordUser] = useState('')
+  const classes = useStyles()
   const dispatch = useDispatch()
-  const handleSubmitSignup = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (nameUser && emailUser && passwordUser) {
+  const formik = useFormik({
+    initialValues: {
+      userName: '',
+      userEmail: '',
+      userPassword: '',
+    },
+    onSubmit: (values: account) => {
       dispatch(addUserAction({
         id: v4(),
-        nameUser: nameUser,
-        emailUser: emailUser,
-        passwordUser: passwordUser
+        userName: values.userName,
+        userEmail: values.userEmail,
+        userPassword: values.userPassword
       }) as any)
+      formik.resetForm()
       alert('You have created account successfully!')
-      setNameUser('')
-      setEmailUser('')
-      setPasswordUser('')
-    } else alert('Please enter full information!')
-  }
+    },
+    validationSchema: yup.object({
+      userName: yup
+        .string()
+        .required('Name is required'),
+      userEmail: yup
+        .string()
+        .email('Must be a valid email')
+        .required('Email is required'),
+      userPassword: yup
+        .string()
+        .required('Password is required')
+        .min(6, 'Password is too short - should be 6 chars minimum.')
+    })
+  } as any)
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -64,48 +83,57 @@ export default function SignUp() {
           Sign up
         </Typography>
         <form className={classes.form} noValidate
-        onSubmit={handleSubmitSignup}>
+        onSubmit={formik.handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
                 autoComplete="fname"
-                name="name"
+                name="userName"
                 variant="outlined"
-                required
                 fullWidth
-                id="name"
+                id="userName"
                 label="Your Name"
                 autoFocus
-                value={nameUser}
-                onChange={(e) => setNameUser(e.target.value)}
+                value={formik.values.userName}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.errors.userName && formik.touched.userName && (
+                <p className={classes.validate}>{(formik.errors.userName) as string}</p>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
-                id="email"
+                id="userEmail"
                 label="Email Address"
-                name="email"
+                name="userEmail"
                 autoComplete="off"
-                value={emailUser}
-                onChange={e=>setEmailUser(e.target.value)}
+                value={formik.values.userEmail}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.errors.userEmail && formik.touched.userEmail && (
+                <p className={classes.validate}>{(formik.errors.userEmail) as string}</p>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
-                name="password"
+                name="userPassword"
                 label="Password"
                 type="password"
-                id="password"
+                id="userPassword"
                 autoComplete="current-password"
-                value={passwordUser}
-                onChange={e=>setPasswordUser(e.target.value)}
+                value={formik.values.userPassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.errors.userPassword && formik.touched.userPassword && (
+                <p className={classes.validate}>{(formik.errors.userPassword) as string}</p>
+              )}
             </Grid>
           </Grid>
           <Button
@@ -127,5 +155,5 @@ export default function SignUp() {
         </form>
       </div>
     </Container>
-  );
+  )
 }

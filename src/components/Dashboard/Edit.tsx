@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React, { useEffect, useState } from 'react'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getOrderIdAction,editOrderAction } from '../../app/action';
-import { useDispatch,useSelector } from 'react-redux';
+import { getOrderIdAction,editOrderAction } from '../../app/action'
+import { useDispatch,useSelector } from 'react-redux'
 import { order,editOrder } from '../interface/interface'
+import Title from './Title'
+import { useFormik } from 'formik'
+import * as yup from 'yup'
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -28,42 +32,62 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     width: 200,
   },
-}));
+  validate: {
+    color: 'red',
+    margin: 0
+  }
+}))
 export default function Edit() {
-  const classes = useStyles();
+  const classes = useStyles()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const id = useParams().id
   const getOrder = useSelector((state: any) => state.order)
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [order, setOrder] = useState({
     date: '',
     nameCustomer: '',
     shipTo: '',
     phone: ''
   })
-  const { date, nameCustomer, shipTo, phone }: editOrder = order
   useEffect(() => {
     dispatch(getOrderIdAction(id as string) as any)
   }, [])
   useEffect(() => {
     setOrder({ ...getOrder })
   }, [getOrder])
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let { name, value } = e.target
-    setOrder({...order, [name]: value})
-  }
-  const handleEdit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (date && nameCustomer && shipTo && phone) {
-      dispatch(editOrderAction(id as string, order as order) as any)
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      date: order.date,
+      nameCustomer: order.nameCustomer,
+      shipTo: order.shipTo,
+      phone: order.phone
+    },
+    onSubmit: (values: editOrder) => {
+      dispatch(editOrderAction(id as string, values as order) as any)
       navigate('/dashboard')
-    } else alert('Please enter full information!')
-  }
+    },
+    validationSchema: yup.object({
+      date: yup.date().required('Date is required'),
+      nameCustomer: yup
+        .string()
+        .required('Name is required'),
+      shipTo: yup
+        .string()
+        .required('Location is required'),
+      phone: yup
+        .number()
+        .typeError("That doesn't look like a phone number")
+        .integer("A phone number can't include a decimal point")
+        .required('Phone number is required'),
+    })
+  })
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <Title>Edit orders</Title>
       <div className={classes.paper}>
-        <form className={classes.form} noValidate onSubmit={handleEdit} >
+        <form className={classes.form} noValidate onSubmit={formik.handleSubmit} >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
             <TextField
@@ -75,9 +99,12 @@ export default function Edit() {
               InputLabelProps={{
                 shrink: true,
               }}
-              value={date || ''}
-              onChange={handleInputChange}
-            />
+              value={formik.values.date || ''}
+              onChange={formik.handleChange}
+              />
+              {formik.errors.date && formik.touched.date && (
+                <p className={classes.validate}>{(formik.errors.date) as string}</p>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -88,9 +115,12 @@ export default function Edit() {
                 label="Name Customer"
                 name="nameCustomer"
                 autoComplete="off"
-                value={nameCustomer || ''}
-                onChange={handleInputChange}
+                value={formik.values.nameCustomer || ''}
+                onChange={formik.handleChange}
               />
+              {formik.errors.nameCustomer && formik.touched.nameCustomer && (
+                <p className={classes.validate}>{(formik.errors.nameCustomer) as string}</p>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -101,9 +131,12 @@ export default function Edit() {
                 label="Ship To"
                 name="shipTo"
                 autoComplete="off"
-                value={shipTo || ''}
-                onChange={handleInputChange}
+                value={formik.values.shipTo || ''}
+                onChange={formik.handleChange}
               />
+              {formik.errors.shipTo && formik.touched.shipTo && (
+                <p className={classes.validate}>{(formik.errors.shipTo) as string}</p>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -115,9 +148,12 @@ export default function Edit() {
                 name="phone"
                 autoComplete="off"
                 type="phone"
-                value={phone || ''}
-                onChange={handleInputChange}
+                value={formik.values.phone || ''}
+                onChange={formik.handleChange}
               />
+              {formik.errors.phone && formik.touched.phone && (
+                <p className={classes.validate}>{(formik.errors.phone) as string}</p>
+              )}
             </Grid>
           </Grid>
           <Button

@@ -16,9 +16,9 @@ export interface loginStatus {
 }
 export interface account {
   id: string
-  nameUser: string
-  emailUser: string
-  passwordUser: string
+  userName: string
+  userEmail: string
+  userPassword: string
 }
 interface addUserAction {
   type: 'users/addUser'

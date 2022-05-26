@@ -1,28 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Title from './Title';
-import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import Stack from '@mui/material/Stack';
-import { deleteOrderAction } from '../../app/action';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Title from './Title'
+import Button from '@mui/material/Button'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
+import Stack from '@mui/material/Stack'
+import Pagination from '@mui/material/Pagination'
+import Grid from '@material-ui/core/Grid'
+import { deleteOrderAction } from '../../app/action'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom"
 import { order } from '../interface/interface'
 const useStyles = makeStyles((theme) => ({
   groupButton: {
     justifyContent: 'center'
+  },
+  pagination: {
+    justifyContent: 'center',
+    marginTop: '20px'
   }
-}));
+}))
 
 export default function Orders() {
-  const classes = useStyles();
+  const classes = useStyles()
   const [orders, setOrders] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
   const dispatch = useDispatch()
   const getOrder = useSelector((state: any) => state.orders)
   let navigate = useNavigate()
@@ -33,6 +40,16 @@ export default function Orders() {
   }, [getOrder])
   const handleDelete = (id: string) => {
     dispatch(deleteOrderAction(id) as any)
+  }
+
+  const itemsPerPage = 5
+  const maxPage = Math.ceil(orders.length / itemsPerPage)
+
+  const beginData = (currentPage - 1) * itemsPerPage
+  const endData = beginData + itemsPerPage
+
+  const handleChange = (e: React.ChangeEvent<unknown> , page: number) => {
+    setCurrentPage(page)
   }
   return (
     <React.Fragment>
@@ -48,7 +65,7 @@ export default function Orders() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {orders.map((order: order) => (
+          {orders.slice(beginData,endData).map((order: order) => (
             <TableRow key={order.id}>
               <TableCell>{order.date}</TableCell>
               <TableCell>{order.nameCustomer}</TableCell>
@@ -74,6 +91,9 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
+      <Grid container className={classes.pagination}>
+        <Pagination count={maxPage} color="primary" onChange={handleChange} />
+      </Grid>
     </React.Fragment>
-  );
+  )
 }

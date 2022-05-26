@@ -1,5 +1,5 @@
 import { order,account,Action } from '../components/interface/interface'
-import { Dispatch } from 'redux';
+import { Dispatch } from 'redux'
 const urlOrders = 'http://localhost:5000/orders'
 const urlUsers = 'http://localhost:5000/accounts'
 

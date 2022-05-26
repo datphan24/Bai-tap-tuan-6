@@ -1,27 +1,27 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mainListItems } from './listItems';
-import OrderEntry from './OrderEntry';
-import Orders from './Orders';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { useNavigate } from 'react-router-dom';
-import {loginStatus} from '../interface/interface'
+import React from 'react'
+import clsx from 'clsx'
+import { makeStyles } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Drawer from '@material-ui/core/Drawer'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import List from '@material-ui/core/List'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+import IconButton from '@material-ui/core/IconButton'
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import MenuIcon from '@material-ui/icons/Menu'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import MainListItems from './listItems'
+import OrderEntry from './OrderEntry'
+import Orders from './Orders'
+import LogoutIcon from '@mui/icons-material/Logout'
+import { useNavigate } from 'react-router-dom'
+import { loginStatus } from '../interface/interface'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -97,28 +97,28 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   fixedHeight: {
-    height: 500,
+    height: 525,
   },
   logOut: {
     marginRight: '15px',
     cursor: 'pointer'
   }
-}));
+}))
 
 export default function Dashboard({setLogged}: loginStatus) {
-  const classes = useStyles();
+  const classes = useStyles()
   const navigate = useNavigate()
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
   const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
   const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    setOpen(false)
+  }
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
   const handleLogout = () => {
     navigate('/')
-    setLogged(false);
+    setLogged(false)
   }
   return (
     <div className={classes.root}>
@@ -154,7 +154,9 @@ export default function Dashboard({setLogged}: loginStatus) {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <List>
+          <MainListItems></MainListItems>
+        </List>
         <Divider />
       </Drawer>
       <main className={classes.content}>
@@ -176,5 +178,5 @@ export default function Dashboard({setLogged}: loginStatus) {
         </Container>
       </main>
     </div>
-  );
+  )
 }
