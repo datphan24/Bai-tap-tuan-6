@@ -1,0 +1,89 @@
+{
+  "accounts": [
+    {
+      "id": "c5a4be0d-8167-4996-9ed0-aeab88fd7700",
+      "userName": "dang dat",
+      "userEmail": "admin@admin.com",
+      "userPassword": "khongco0"
+    }
+  ],
+  "orders": [
+    {
+      "id": "b858ac0f-b3d4-4cc5-ae58-d3aca19bddb6",
+      "date": "1111-11-11",
+      "nameCustomer": "111111",
+      "shipTo": "1111",
+      "phone": "11111"
+    },
+    {
+      "id": "91308b46-e4ce-4363-8169-e4dfb67bd789",
+      "date": "2222-02-22",
+      "nameCustomer": "22222",
+      "shipTo": "22222",
+      "phone": "222222"
+    },
+    {
+      "id": "edde7818-2914-45be-b1c3-18303f73f239",
+      "date": "3333-03-03",
+      "nameCustomer": "3333333",
+      "shipTo": "33333",
+      "phone": "333333"
+    },
+    {
+      "id": "24928536-c706-48cf-8a8f-257b3e3d03b8",
+      "date": "4444-04-04",
+      "nameCustomer": "44444",
+      "shipTo": "444444",
+      "phone": "444444"
+    },
+    {
+      "id": "5e60e48d-4180-4d97-b49e-a65badaee842",
+      "date": "5555-05-05",
+      "nameCustomer": "5555",
+      "shipTo": "5555",
+      "phone": "5555555"
+    },
+    {
+      "date": "6666-06-06",
+      "nameCustomer": "66666",
+      "shipTo": "66666",
+      "phone": "666667",
+      "id": "6240f7eb-edd7-4cdc-a2d9-b483037c0995"
+    },
+    {
+      "id": "06d49f8e-6845-40f5-90c1-7ee6fc798f5e",
+      "date": "7777-07-07",
+      "nameCustomer": "777777",
+      "shipTo": "777777",
+      "phone": "777777"
+    },
+    {
+      "id": "df7cb352-bd4f-4230-ad3e-b0a18c1ed686",
+      "date": "8888-08-08",
+      "nameCustomer": "88888",
+      "shipTo": "8888",
+      "phone": "888888"
+    },
+    {
+      "id": "e52f28c5-1d14-4b43-850c-d0b4b539628f",
+      "date": "9999-09-09",
+      "nameCustomer": "999999",
+      "shipTo": "99999",
+      "phone": "99999"
+    },
+    {
+      "id": "7bea7199-6700-4df6-b5ce-199d0a36ccff",
+      "date": "1010-10-10",
+      "nameCustomer": "101010110",
+      "shipTo": "10101010110",
+      "phone": "101010101"
+    },
+    {
+      "id": "71a004b3-99cd-49cb-8925-8a24deed12b0",
+      "date": "1212-12-12",
+      "nameCustomer": "1212",
+      "shipTo": "1212121212",
+      "phone": "12121212"
+    }
+  ]
+}
