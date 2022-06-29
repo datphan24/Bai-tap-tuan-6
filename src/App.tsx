@@ -16,7 +16,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard setLogged={setLogged} />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/edit/:id' element={<Edit />} />
-        <Route path='/chat' element={<Chat />} />
+        <Route path='/chat' element={<Chat setLogged={setLogged} />} />
       </Routes>
     </div>
   )
