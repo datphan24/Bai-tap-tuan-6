@@ -5,16 +5,15 @@
       "userName": "dang dat",
       "userEmail": "admin@admin.com",
       "userPassword": "khongco0"
+    },
+    {
+      "id": "52488fc2-2b3f-4d6d-831f-07ea0a33c290",
+      "userName": "dang dat",
+      "userEmail": "dat@admin.com",
+      "userPassword": "khongco0"
     }
   ],
   "orders": [
-    {
-      "id": "b858ac0f-b3d4-4cc5-ae58-d3aca19bddb6",
-      "date": "1111-11-11",
-      "nameCustomer": "111111",
-      "shipTo": "1111",
-      "phone": "11111"
-    },
     {
       "id": "91308b46-e4ce-4363-8169-e4dfb67bd789",
       "date": "2222-02-22",
@@ -79,11 +78,11 @@
       "phone": "101010101"
     },
     {
-      "id": "71a004b3-99cd-49cb-8925-8a24deed12b0",
       "date": "1212-12-12",
-      "nameCustomer": "1212",
+      "nameCustomer": "121212121212",
       "shipTo": "1212121212",
-      "phone": "12121212"
+      "phone": "1212121212",
+      "id": "ed168b90-59af-4c75-b870-ce8ef93bd600"
     }
   ]
 }
